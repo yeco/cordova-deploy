@@ -31,6 +31,7 @@ var cordovaConfig = null;
 var hockeyConfig = null;
 var testFlightConfig = null;
 var apiToken = null;
+var testFairyToken = null;
 var teamToken = null;
 var notes = null;
 var distlist = null;
@@ -98,6 +99,7 @@ if(hockeyConfig) {
 if(testFlightConfig) {
 	apiToken = testFlightConfig.api_token;
 	teamToken = testFlightConfig.team_token;
+	testFairyToken = testFlightConfig.tfairy_token;
 } else {
 	apiToken = program.apitoken;
 	teamToken = program.teamtoken;
@@ -166,18 +168,21 @@ if(program.hockey){
 }
 
 if(program.testflight) {
-	console.log('testflight');
-	console.log(apiToken)
-	if(typeof apiToken == 'undefined') {
+ 	if(typeof apiToken == 'undefined') {
 		console.log('You did not supply a Test Flight API Token - you cannot proceed.'.red.bold);
 		return;
 	}
 
 	if(typeof teamToken == 'undefined') {
-		console.log('You did not supply a Test Flight Team Token - you cannot proceed.'.red.bold);
-		return;	
+	console.log('You did not supply a Test Flight Team Token - you cannot proceed.'.red.bold);
+	return;	
+	}
+	if(program.ios) {
+		testFlightDeploys.deployIos(apiToken, teamToken, ipaPath, dsymPath, notes, distlist);
 	}
 
-	testFlightDeploys.deployIos(apiToken, teamToken, ipaPath, dsymPath, notes, distlist);
-
+	if(program.android) {
+		testFlightDeploys.deployAndroid(testFairyToken, teamToken, apkPath, notes, distlist);
+	}
+	
 }

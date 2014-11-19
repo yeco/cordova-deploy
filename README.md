@@ -38,7 +38,7 @@ Then your command to build and deploy looks more like this:
 
 `cordova-deploy --build --ios --hockey`
 
-Building &amp; Deploying to TestFlight (iOS Only)
+Building &amp; Deploying to TestFlight (TestFairy on Android)
 ===========
 First ensure you have a TestFlight account with an active API Token and Team Token.
 
@@ -52,7 +52,8 @@ There is a second option, in the root level of your project, add a file named te
 ``` json
 {
 	"api_token": "some_api_token",
-	"team_token": "some_team_token"
+	"team_token": "some_team_token",
+	"tfairy_token": "some_testfairy_token"
 }
 ```
 
@@ -61,6 +62,7 @@ NOTE: you may want to add the testflight.json file to your .gitignore as to avoi
 Then your command to build and deploy looks more like this:
 
 `cordova-deploy --build --ios --testflight`
+`cordova-deploy --build --android --testflight`
 
 Additional Information
 ===========
